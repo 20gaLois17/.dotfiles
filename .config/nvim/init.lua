@@ -120,7 +120,7 @@ require('lazy').setup({
   },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim',      dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 
   {
     -- Add indentation guides even on blank lines
@@ -132,10 +132,12 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         opts = {} },
+  { 'numToStr/Comment.nvim',    opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', version = '*',
+  {
+    'nvim-telescope/telescope.nvim',
+    version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
@@ -349,7 +351,11 @@ vim.keymap.set('n', '<C-p>', ':bp<cr>');
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[ ] Find existing buffers' })
+vim.keymap.set('n', '<leader>ff', function()
+  require('telescope.builtin').find_files {
+    follow = true
+  }
+end, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>fl', require('telescope.builtin').live_grep, { desc = '[ ] Grep' })
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -361,7 +367,11 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
-
+vim.keymap.set('n', '<leader>fo', function()
+    require('telescope.builtin').live_grep {
+        grep_open_files = true
+    }
+end, { desc = 'Grep in open Buffer' })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
