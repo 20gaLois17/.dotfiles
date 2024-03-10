@@ -368,9 +368,9 @@ vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, { desc
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 vim.keymap.set('n', '<leader>fo', function()
-    require('telescope.builtin').live_grep {
-        grep_open_files = true
-    }
+    require('telescope.builtin').live_grep({
+        grep_open_files = true,
+    })
 end, { desc = 'Grep in open Buffer' })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })

@@ -98,6 +98,8 @@ alias dps='docker compose ps'
 alias e='nvim'
 alias confnvim='nvim ~/.dotfiles/.config/nvim/init.lua'
 alias confbash='nvim ~/.dotfiles/.bashrc'
+alias notes='nvim ~/notes.txt'
+alias todo='nvim ~/all.todo'
 
 alias p='cd /home/sk/projects/bal'
 
