@@ -100,6 +100,7 @@ alias confnvim='nvim ~/.dotfiles/.config/nvim/init.lua'
 alias confbash='nvim ~/.dotfiles/.bashrc'
 alias notes='nvim ~/notes.txt'
 alias todo='nvim ~/all.todo'
+alias ks='NVIM_APPNAME="nvim_kickstart" nvim'
 
 alias p='cd /home/sk/projects/bal'
 
