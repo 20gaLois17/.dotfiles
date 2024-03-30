@@ -226,7 +226,17 @@ require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
+	-- Git related plugins
+	"tpope/vim-fugitive",
+
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
+
 	-- NOTE: Plugins can also be added by using a table,
+	--
 	-- with the first argument being the link and the following
 	-- keys can be used to configure plugin behavior/loading/etc.
 	--
@@ -607,7 +617,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { c = true, cpp = true, php = true, vue = true }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -884,6 +894,40 @@ require("lazy").setup({
 		},
 	},
 })
+
+-- [[ Harpoon Setup ]]
+local harpoon = require("harpoon")
+
+harpoon:setup()
+
+vim.keymap.set("n", "<leader>a", function()
+	harpoon:list():append()
+end)
+vim.keymap.set("n", "<C-e>", function()
+	harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+
+vim.keymap.set("n", "<leader>h", function()
+	harpoon:list():select(1)
+end)
+vim.keymap.set("n", "<leader>j", function()
+	harpoon:list():select(2)
+end)
+vim.keymap.set("n", "<leader>k", function()
+	harpoon:list():select(3)
+end)
+-- vim.keymap.set("n", "<leader>l>", function()
+-- 	harpoon:list():select(4)
+-- end)
+
+-- Toggle previous & next buffers stored within Harpoon list
+vim.keymap.set("n", "<C-S-P>", function()
+	harpoon:list():prev()
+end)
+
+vim.keymap.set("n", "<C-S-N>", function()
+	harpoon:list():next()
+end)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
