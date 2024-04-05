@@ -211,6 +211,12 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
+-- Custom Autocommand (remove trailing whitespace on save)
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	pattern = { "*" },
+	command = [[%s/\s\+$//e]],
+})
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
