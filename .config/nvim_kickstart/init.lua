@@ -925,6 +925,11 @@ end)
 -- vim.keymap.set("n", "<leader>l>", function()
 -- 	harpoon:list():select(4)
 -- end)
+--
+-- Helpful remap for copy paste
+vim.keymap.set("x", "<leader>p", '"_dP')
+
+vim.keymap.set("n", "<leader>x", ":Ex<CR>")
 
 -- Toggle previous & next buffers stored within Harpoon list
 vim.keymap.set("n", "<C-S-P>", function()
