@@ -91,6 +91,7 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias o='xdg-open'
 alias dup='docker compose up -d'
 alias dow='docker compose down'
 alias dlog='docker compose logs -f'
