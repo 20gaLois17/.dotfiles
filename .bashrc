@@ -94,6 +94,7 @@ alias l='ls -CF'
 alias o='xdg-open'
 alias dup='docker compose up -d'
 alias dow='docker compose down'
+alias dupf='docker compose -f compose.local.yml up -d'
 alias dlog='docker compose logs -f'
 alias dps='docker compose ps'
 alias e='nvim'
@@ -129,6 +130,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export PATH=$PATH:/usr/local/go/bin
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -147,3 +150,4 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+. "$HOME/.cargo/env"

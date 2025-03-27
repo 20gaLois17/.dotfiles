@@ -206,6 +206,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+	desc = "return cursor to where it was last time closing the file",
+	pattern = "*",
+	command = 'silent! normal! g`"zv',
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -765,16 +771,16 @@ require("lazy").setup({
 			vim.cmd.colorscheme("tokyonight-night")
 
 			-- You can configure highlights by doing something like:
-			vim.cmd.hi("Comment gui=none")
+			vim.api.nvim_set_hl(0, "Comment", { fg = "#c678dd" })
 		end,
 	},
 
 	-- Highlight todo, notes, etc in comments
 	-- {
-	-- 	"folke/todo-comments.nvim",
-	-- 	event = "VimEnter",
-	-- 	dependencies = { "nvim-lua/plenary.nvim" },
-	-- 	opts = { signs = false },
+	--  "folke/todo-comments.nvim",
+	--  event = "VimEnter",
+	--  dependencies = { "nvim-lua/plenary.nvim" },
+	--  opts = { signs = false },
 	-- },
 
 	{ -- Collection of various small independent plugins/modules
@@ -844,25 +850,25 @@ require("lazy").setup({
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
 	},
-	{ -- Github Copilot integration
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		build = ":Copilot auth",
-		event = "InsertEnter",
-		config = function()
-			require("copilot").setup({})
-		end,
-	},
-
-	{ -- Copilot Integration with 'cmp'
-		"zbirenbaum/copilot-cmp",
-		config = function()
-			require("copilot_cmp").setup({
-				suggestion = { enabled = false },
-				panel = { enabled = false },
-			})
-		end,
-	},
+	-- { -- Github Copilot integration
+	-- 	"zbirenbaum/copilot.lua",
+	-- 	cmd = "Copilot",
+	-- 	build = ":Copilot auth",
+	-- 	event = "InsertEnter",
+	-- 	config = function()
+	-- 		require("copilot").setup({})
+	-- 	end,
+	-- },
+	--
+	-- { -- Copilot Integration with 'cmp'
+	-- 	"zbirenbaum/copilot-cmp",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup({
+	-- 			suggestion = { enabled = false },
+	-- 			panel = { enabled = false },
+	-- 		})
+	-- 	end,
+	-- },
 
 	-- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
 	-- init.lua. If you want these files, they are in the repository, so you can just download them and
@@ -911,7 +917,7 @@ local harpoon = require("harpoon")
 harpoon:setup()
 
 vim.keymap.set("n", "<leader>a", function()
-	harpoon:list():append()
+	harpoon:list():add()
 end)
 vim.keymap.set("n", "<C-e>", function()
 	harpoon.ui:toggle_quick_menu(harpoon:list())
@@ -927,7 +933,7 @@ vim.keymap.set("n", "<leader>k", function()
 	harpoon:list():select(3)
 end)
 -- vim.keymap.set("n", "<leader>l>", function()
--- 	harpoon:list():select(4)
+--  harpoon:list():select(4)
 -- end)
 --
 -- Helpful remap for copy paste
